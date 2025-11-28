@@ -42,51 +42,59 @@ export function NavigationBar({
 }: NavigationBarProps) {
   const { theme, setTheme } = useTheme();
   return (
-    <div className="flex flex-1 items-center gap-2 p-2 dark:bg-gray-900 min-w-0">
-      <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
+    <div className="flex flex-1 items-center gap-2 p-2.5 bg-lightSecondary dark:bg-darkSecondary border-b border-lightBorder dark:border-darkBorderLight min-w-0">
+      <div className="hidden sm:flex items-center gap-1 flex-shrink-0">
         <button
           onClick={onBack}
           disabled={!canGoBack}
-          className={`w-8 h-8 sm:w-10 sm:h-10 p-2 sm:p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 ${
-            !canGoBack ? 'opacity-50 cursor-not-allowed' : ''
+          className={`w-9 h-9 p-2 rounded-lg transition-all duration-200 ${
+            !canGoBack 
+              ? 'opacity-40 cursor-not-allowed text-lightTextSecondary dark:text-darkTextMuted' 
+              : 'hover:bg-lightTertiary dark:hover:bg-darkTertiary text-lightText dark:text-darkText active:scale-95'
           }`}
+          title="Back"
         >
-          <ChevronLeft className="text-xl dark:text-gray-400" />
+          <ChevronLeft className="w-5 h-5" />
         </button>
         <button
           onClick={onForward}
           disabled={!canGoForward}
-          className={`w-10 h-10 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 ${
-            !canGoForward ? 'opacity-50 cursor-not-allowed' : ''
+          className={`w-9 h-9 p-2 rounded-lg transition-all duration-200 ${
+            !canGoForward 
+              ? 'opacity-40 cursor-not-allowed text-lightTextSecondary dark:text-darkTextMuted' 
+              : 'hover:bg-lightTertiary dark:hover:bg-darkTertiary text-lightText dark:text-darkText active:scale-95'
           }`}
+          title="Forward"
         >
-          <ChevronRight className="text-xl dark:text-gray-400" />
+          <ChevronRight className="w-5 h-5" />
         </button>
         <button
           onClick={onRefresh}
-          className="w-10 h-10 p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="w-9 h-9 p-2 rounded-lg hover:bg-lightTertiary dark:hover:bg-darkTertiary text-lightText dark:text-darkText transition-all duration-200 active:scale-95 active:rotate-180"
+          title="Refresh"
         >
-        <RefreshCw className="text-xl dark:text-gray-400" />
+        <RefreshCw className="w-5 h-5 transition-transform" />
         </button>
       </div>
       <div className="flex-1 min-w-0">
         <AddressBar currentUrl={currentUrl} onNavigate={onNavigate} />
       </div>
 
-      <div className="flex items-center gap-2 flex-shrink-0">
-        <div className="sm:hidden flex items-center gap-2">
+      <div className="flex items-center gap-1.5 flex-shrink-0">
+        <div className="sm:hidden flex items-center gap-1.5">
           {!isNewTabPage && (
             <button
               onClick={onNewTab}
-              className="w-8 h-8 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="w-9 h-9 p-2 rounded-lg hover:bg-lightTertiary dark:hover:bg-darkTertiary text-lightText dark:text-darkText transition-all duration-200 active:scale-95"
+              title="New Tab"
             >
-              <Plus className="w-4 h-4 dark:text-gray-400" />
+              <Plus className="w-5 h-5" />
             </button>
           )}
           <TabCounter tabs={tabs} onClick={onTabViewOpen} />
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <ThemeToggle onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')} />
           <UserAvatar
             currentUser={currentUser}

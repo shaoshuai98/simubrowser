@@ -2,44 +2,125 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Global Animations and Transitions */
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+  
+  html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-lightSecondary dark:bg-darkBg;
+  }
+}
+
+/* Custom Scrollbar */
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-track {
+    @apply bg-lightSecondary dark:bg-darkBg;
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-thumb {
+    @apply bg-lightBorder dark:bg-darkBorder rounded-full;
+  }
+  
+  .scrollbar-custom::-webkit-scrollbar-thumb:hover {
+    @apply bg-lightTextSecondary dark:bg-darkTextSecondary;
+  }
+}
+
 @layer components {
   .shortcut-card {
     @apply transition-all duration-300 ease-in-out;
-    @apply rounded-lg shadow-sm hover:shadow-md;
+    @apply rounded-xl shadow-sm hover:shadow-lg;
     @apply p-4 cursor-pointer;
-    @apply border border-gray-200 dark:border-gray-700;
+    @apply border-2 border-lightBorder dark:border-darkBorderLight;
+    @apply bg-lightBg dark:bg-darkSecondary;
+    @apply hover:scale-105 active:scale-100;
   }
 
   .shortcut-grid {
-    @apply grid gap-4;
+    @apply grid gap-4 sm:gap-5 md:gap-6;
     @apply grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6;
     @apply p-4;
   }
 
   .shortcut-icon {
-    @apply text-2xl mb-2;
+    @apply text-3xl mb-2;
     @apply flex items-center justify-center;
+    @apply transition-transform duration-200;
   }
 
   .shortcut-title {
-    @apply text-sm font-medium;
-    @apply text-gray-700 dark:text-gray-300;
+    @apply text-sm font-semibold;
+    @apply text-lightText dark:text-darkText;
     @apply text-center truncate;
   }
 
   .new-tab-container {
     min-height: 100vh;
     @apply w-full;
-    @apply bg-gray-50 dark:bg-gray-900;
+    @apply bg-lightSecondary dark:bg-darkBg;
     @apply p-4 sm:p-6 md:p-8;
-    @apply overflow-auto;
+    @apply overflow-auto scrollbar-custom;
   }
 
   .shortcuts-section {
     @apply max-w-7xl mx-auto;
-    @apply bg-white dark:bg-gray-800;
-    @apply rounded-xl shadow-lg;
-    @apply p-4 sm:p-6 md:p-8;
+    @apply bg-lightBg dark:bg-darkSecondary;
+    @apply rounded-2xl shadow-lg;
+    @apply p-6 sm:p-8 md:p-10;
+    @apply border-2 border-lightBorder dark:border-darkBorderLight;
+  }
+  
+  /* Button styles */
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg;
+    @apply bg-primary-light dark:bg-primary-dark;
+    @apply text-white font-medium;
+    @apply hover:opacity-90 active:scale-95;
+    @apply transition-all duration-200;
+    @apply shadow-sm hover:shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply px-4 py-2 rounded-lg;
+    @apply bg-lightTertiary dark:bg-darkTertiary;
+    @apply text-lightText dark:text-darkText font-medium;
+    @apply hover:bg-lightBorder dark:hover:bg-darkBorder;
+    @apply active:scale-95;
+    @apply transition-all duration-200;
+  }
+  
+  /* Card styles */
+  .card {
+    @apply bg-lightBg dark:bg-darkSecondary;
+    @apply border-2 border-lightBorder dark:border-darkBorderLight;
+    @apply rounded-xl shadow-sm;
+    @apply p-4 sm:p-6;
+    @apply transition-all duration-200;
+  }
+  
+  .card-hover {
+    @apply card hover:shadow-lg hover:scale-[1.02];
   }
 }
 
@@ -74,4 +155,50 @@
   .new-tab-container {
     height: 100vh;
   }
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s ease-out;
 }

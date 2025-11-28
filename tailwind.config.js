@@ -33,21 +33,44 @@ export default {
     },
     extend: {
       colors: {
-        darkBg: '#1a1a1a',
-        darkSecondary: '#2d2d2d',
-        darkBorder: '#404040',
-        darkText: '#e5e5e5',
+        darkBg: '#0f1419',
+        darkSecondary: '#1c2128',
+        darkTertiary: '#2d333b',
+        darkBorder: '#444c56',
+        darkBorderLight: '#373e47',
+        darkText: '#e6edf3',
+        darkTextSecondary: '#adbac7',
+        darkTextMuted: '#768390',
         lightBg: '#ffffff',
-        lightSecondary: '#f3f4f6',
-        lightBorder: '#e5e7eb',
-        lightText: '#111827',
+        lightSecondary: '#f6f8fa',
+        lightTertiary: '#f0f3f6',
+        lightBorder: '#d0d7de',
+        lightBorderLight: '#e5e7eb',
+        lightText: '#1f2328',
+        lightTextSecondary: '#656d76',
         primary: {
-          light: '#4f46e5',
-          dark: '#6366f1'
+          light: '#0969da',
+          dark: '#4493f8'
         },
         secondary: {
-          light: '#9ca3af',
-          dark: '#6b7280'
+          light: '#6e7781',
+          dark: '#768390'
+        },
+        accent: {
+          light: '#6639ba',
+          dark: '#986ee2'
+        },
+        success: {
+          light: '#1a7f37',
+          dark: '#3fb950'
+        },
+        warning: {
+          light: '#bf8700',
+          dark: '#d29922'
+        },
+        danger: {
+          light: '#d1242f',
+          dark: '#f85149'
         }
       },
       spacing: {
