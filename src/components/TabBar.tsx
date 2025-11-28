@@ -20,20 +20,20 @@ export function TabBar({
   isNewTabPage = false,
 }: TabBarProps) {
   return (
-    <div className="relative flex items-center bg-gray-200 px-2 hidden sm:flex">
+    <div className="relative flex items-center bg-lightSecondary dark:bg-darkBg px-2 hidden sm:flex border-b border-lightBorder dark:border-darkBorderLight">
       <div className="flex-1 relative">
-        <div className="flex items-center gap-1 overflow-x-auto snap-x py-1 scroll-smooth touch-pan-x">
+        <div className="flex items-center gap-1 overflow-x-auto snap-x py-1.5 scroll-smooth touch-pan-x scrollbar-hide">
           {tabs.map((tab) => (
             <div
               key={tab.id}
-            className={`group flex items-center gap-1 px-3 py-2 pr-2 rounded-t-lg cursor-pointer snap-start min-w-[100px] sm:min-w-[140px] md:min-w-[160px] scroll-ml-6 transition-colors ${
+            className={`group flex items-center gap-2 px-4 py-2.5 rounded-t-lg cursor-pointer snap-start min-w-[120px] sm:min-w-[160px] md:min-w-[180px] scroll-ml-6 transition-all duration-200 ${
               tab.id === activeTabId
-                ? 'bg-white text-gray-800 shadow-sm'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-50'
+                ? 'bg-lightBg dark:bg-darkSecondary text-lightText dark:text-darkText shadow-sm border-t-2 border-t-primary-light dark:border-t-primary-dark border-x border-lightBorder dark:border-darkBorderLight'
+                : 'bg-lightTertiary dark:bg-darkBg text-lightTextSecondary dark:text-darkTextSecondary hover:bg-lightSecondary dark:hover:bg-darkTertiary'
             }`}
             onClick={() => onTabSelect(tab.id)}
           >
-            <span className="truncate max-w-[200px]">
+            <span className="truncate max-w-[200px] text-sm font-medium">
               {getDomainFromUrl(tab.url)}
             </span>
             <button
@@ -41,22 +41,25 @@ export function TabBar({
                 e.stopPropagation();
                 onTabClose(tab.id);
               }}
-              className="ml-2 p-1 rounded-full hover:bg-gray-200 opacity-0 group-hover:opacity-100"
+              className={`ml-auto p-1 rounded-md hover:bg-lightBorder dark:hover:bg-darkBorder transition-all ${
+                tab.id === activeTabId ? 'opacity-70 hover:opacity-100' : 'opacity-0 group-hover:opacity-70 group-hover:hover:opacity-100'
+              }`}
             >
-              <X className="w-3 h-3" />
+              <X className="w-3.5 h-3.5" />
             </button>
           </div>
           ))}
           {!isNewTabPage && (
               <button
                 onClick={onNewTab}
-                className="p-2 hover:bg-gray-300 rounded-full"
+                className="p-2 ml-1 rounded-lg hover:bg-lightTertiary dark:hover:bg-darkTertiary text-lightTextSecondary dark:text-darkTextSecondary transition-colors"
+                title="New Tab"
               >
                 <Plus className="w-4 h-4" />
               </button>
           )}
         </div>
-        <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-gray-200 to-transparent pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-lightSecondary dark:from-darkBg to-transparent pointer-events-none" />
       </div>
     </div>
   );

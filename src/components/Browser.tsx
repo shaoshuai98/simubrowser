@@ -4,7 +4,7 @@ import { NavigationBar } from './NavigationBar';
 import { TabBar } from './TabBar';
 import { TabCardView } from './TabCardView';
 import NewTabPage from './NewTabPage';
-import { BrowserState, Tab, getDomainFromUrl, BookmarkType } from '../types';
+import { BrowserState, Tab, getDomainFromUrl } from '../types';
 import { ShieldAlert } from 'lucide-react';
 
 const createNewTab = (): Tab => ({
@@ -134,7 +134,7 @@ export function Browser() {
       const iframe = event.target as HTMLIFrameElement;
       const title = iframe.contentDocument?.title || getDomainFromUrl(activeTab.url);
       updateActiveTab({ title });
-    } catch (error) {
+    } catch {
       const title = getDomainFromUrl(activeTab.url);
       updateActiveTab({ title });
     }
@@ -143,7 +143,7 @@ export function Browser() {
   const isCurrentTabNewTabPage = activeTab.url === '';
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100 dark:bg-darkBg">
+    <div className="flex flex-col h-screen bg-lightSecondary dark:bg-darkBg">
       <TabBar
         tabs={browserState.tabs}
         activeTabId={browserState.activeTabId}
@@ -160,7 +160,7 @@ export function Browser() {
               tab.id === browserState.activeTabId ? 'visible' : 'hidden'
             }`}
           >
-            <div className="flex items-center space-x-4 px-2 bg-gray-50 dark:bg-darkSecondary">
+            <div className="flex items-center space-x-4 px-2 bg-lightBg dark:bg-darkSecondary">
               <NavigationBar
                 canGoBack={tab.currentHistoryIndex > 0}
                 canGoForward={tab.currentHistoryIndex < tab.history.length - 1}
@@ -176,16 +176,26 @@ export function Browser() {
               />
             </div>
             {tab.error ? (
-              <div className="flex flex-col items-center justify-center h-full bg-gray-50 dark:bg-darkSecondary">
-                <div className="bg-white dark:bg-darkBg p-8 rounded-lg shadow-md max-w-md text-center dark:shadow-darkSecondary">
-                  <ShieldAlert className="w-12 h-12 text-yellow-500 mx-auto mb-4" />
-                  <h2 className="text-xl font-semibold text-gray-800 dark:text-darkText mb-2">Security Notice</h2>
-                  <p className="text-gray-600 dark:text-gray-400">{tab.error}</p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-                    Try opening <a href={tab.url} target="_blank" rel="noopener noreferrer" className="text-primary-light dark:text-primary-dark hover:underline">
+              <div className="flex flex-col items-center justify-center h-full bg-lightSecondary dark:bg-darkBg">
+                <div className="bg-lightBg dark:bg-darkSecondary p-10 rounded-2xl shadow-xl max-w-lg text-center border-2 border-lightBorder dark:border-darkBorderLight">
+                  <div className="bg-warning-light/10 dark:bg-warning-dark/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <ShieldAlert className="w-12 h-12 text-warning-light dark:text-warning-dark" />
+                  </div>
+                  <h2 className="text-2xl font-bold text-lightText dark:text-darkText mb-3 tracking-tight">Security Notice</h2>
+                  <p className="text-lightTextSecondary dark:text-darkTextSecondary leading-relaxed mb-6">{tab.error}</p>
+                  <div className="bg-lightSecondary dark:bg-darkTertiary p-4 rounded-lg">
+                    <p className="text-sm text-lightTextSecondary dark:text-darkTextSecondary mb-2">
+                      Try opening this link in a new window:
+                    </p>
+                    <a 
+                      href={tab.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="text-primary-light dark:text-primary-dark hover:underline font-medium break-all inline-block"
+                    >
                       {tab.url}
-                    </a> in a new window instead.
-                  </p>
+                    </a>
+                  </div>
                 </div>
               </div>
             ) : !tab.url ? (

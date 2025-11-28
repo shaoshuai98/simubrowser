@@ -55,18 +55,21 @@ const ShortcutCard: React.FC<ShortcutCardProps> = ({ site, onClick, className })
     <button
       onClick={() => onClick(site.url)}
       className={`
-        w-full rounded-lg transition-all duration-200
-        ${className ? 'p-2' : 'p-3 sm:p-4'}
+        w-full rounded-xl transition-all duration-200
+        ${className ? 'p-3' : 'p-4 sm:p-5'}
         ${theme === 'dark' 
-          ? 'bg-gray-800 hover:bg-gray-700' 
-          : 'bg-white hover:bg-gray-50'}
-        hover:scale-105
-        flex flex-col items-center justify-center gap-2
-        border border-gray-200 dark:border-gray-700
+          ? 'bg-darkSecondary hover:bg-darkTertiary border-darkBorderLight' 
+          : 'bg-lightBg hover:bg-lightSecondary border-lightBorder'}
+        hover:scale-105 hover:shadow-lg
+        flex flex-col items-center justify-center gap-2.5
+        border-2 shadow-sm
+        active:scale-100
       `}
     >
-      <span className={`${className ? 'text-xl' : 'text-2xl'}`}>{site.icon}</span>
-      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+      <span className={`${className ? 'text-2xl' : 'text-3xl'}`}>{site.icon}</span>
+      <span className={`text-sm font-semibold ${
+        theme === 'dark' ? 'text-darkText' : 'text-lightText'
+      }`}>
         {site.title}
       </span>
     </button>
@@ -105,45 +108,56 @@ const NewTabPage: React.FC<NewTabPageProps> = ({ onNavigate, className }) => {
     <div className={`
       w-full overflow-auto
       ${className ? 'aspect-[4/3]' : 'min-h-screen'}
-      ${theme === 'dark' ? 'bg-gray-900' : 'bg-gray-50'}
+      ${theme === 'dark' ? 'bg-darkBg' : 'bg-lightSecondary'}
       ${className ? 'p-2' : ''}
       ${className || ''}
     `}>
-      <div className={`w-full max-w-6xl mx-auto ${className ? 'p-2 space-y-2' : 'p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8'}`}>
-        <h1 className={`
-          ${className ? 'text-xl' : 'text-3xl'} font-bold text-center
-          ${theme === 'dark' ? 'text-white' : 'text-gray-900'}
-        `}>
-          Quick Access
-        </h1>
-        <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 
-          ${className ? 'gap-2' : 'gap-4 sm:gap-6 md:gap-8'}
-        `}>
-          {shortcuts.map((site) => (
-            <ShortcutCard
-              key={site.id}
-              site={site}
-              onClick={handleShortcutClick}
-              className={className}
-            />
-          ))}
+      <div className={`w-full max-w-7xl mx-auto ${className ? 'p-3 space-y-4' : 'p-6 sm:p-8 md:p-12 space-y-10 sm:space-y-12'}`}>
+        <div className="space-y-6">
+          <h1 className={`
+            ${className ? 'text-xl' : 'text-3xl sm:text-4xl'} font-bold text-center
+            ${theme === 'dark' ? 'text-darkText' : 'text-lightText'}
+            tracking-tight
+          `}>
+            Quick Access
+          </h1>
+          <div className={`grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 
+            ${className ? 'gap-3' : 'gap-4 sm:gap-5 md:gap-6'}
+          `}>
+            {shortcuts.map((site) => (
+              <ShortcutCard
+                key={site.id}
+                site={site}
+                onClick={handleShortcutClick}
+                className={className}
+              />
+            ))}
+          </div>
         </div>
-        <h2 className={`
-          text-2xl font-bold my-8 text-center
-          ${theme === 'dark' ? 'text-white' : 'text-gray-900'}
-        `}>
-          Bookmarks
-        </h2>
-        <BookmarkBar
-          bookmarks={bookmarks}
-          onUpdateBookmarks={handleUpdateBookmarks}
-          onNavigate={onNavigate || (() => {})}
-        />
-        {bookmarks.length === 0 && (
-          <p className={`text-center text-gray-500 dark:text-gray-400 mt-4`}>
-            No bookmarks yet. Click the star icon in the address bar to add bookmarks.
-          </p>
-        )}
+        
+        <div className={`space-y-6 pt-4 ${className ? '' : 'border-t-2'} ${
+          theme === 'dark' ? 'border-darkBorderLight' : 'border-lightBorder'
+        }`}>
+          <h2 className={`
+            ${className ? 'text-lg' : 'text-2xl sm:text-3xl'} font-bold text-center
+            ${theme === 'dark' ? 'text-darkText' : 'text-lightText'}
+            tracking-tight
+          `}>
+            Bookmarks
+          </h2>
+          <BookmarkBar
+            bookmarks={bookmarks}
+            onUpdateBookmarks={handleUpdateBookmarks}
+            onNavigate={onNavigate || (() => {})}
+          />
+          {bookmarks.length === 0 && (
+            <p className={`text-center py-8 ${
+              theme === 'dark' ? 'text-darkTextMuted' : 'text-lightTextSecondary'
+            }`}>
+              No bookmarks yet. Click the star icon in the address bar to add bookmarks.
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );
