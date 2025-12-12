@@ -63,7 +63,7 @@ add_header X-Frame-Options "ALLOWALL";
 3. HTTPS 网站中无法嵌入 HTTP 内容
 
 ## 开发建议
-
+1111
 1. 开发时建议使用支持 iframe 嵌入的测试网站
 2. 可以使用本地服务器测试，确保正确配置 CORS 和 frame 相关响应头
 3. 针对不支持 iframe 的网站，已内置友好的错误提示界面
